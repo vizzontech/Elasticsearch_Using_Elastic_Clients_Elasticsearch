@@ -7,8 +7,7 @@ Why the Change?
    The new client, Elastic.Clients.Elasticsearch, was completely redesigned to make it easier to maintain and develop.
 
 2. Automatic Code Generation:
-   Instead of manually managing Elasticsearch's huge API (over 450 endpoints and nearly 3000 types), the new client uses automatic code generation. This ensures the client is  
- always up-to-date and aligned with the Elasticsearch server.
+   Instead of manually managing Elasticsearch's huge API (over 450 endpoints and nearly 3000 types), the new client uses automatic code generation. This ensures the client is always up-to-date and aligned with the Elasticsearch server.
 
 3. Better Long-Term Support:
   Manually maintaining such a vast API had become unsustainable. The new approach focuses on maintainability and consistency, making it easier to manage updates and new   features.
