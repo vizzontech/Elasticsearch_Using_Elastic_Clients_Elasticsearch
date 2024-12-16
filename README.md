@@ -1,5 +1,5 @@
-# Elasticsearch Using Elastic.Clients.Elasticsearch Nuget Package 
-https://www.elastic.co/guide/en/elasticsearch/client/net-api/current/index.html 
+# Elasticsearch Using Elastic.Clients.Elasticsearch Nuget Package  https://www.elastic.co/guide/en/elasticsearch/client/net-api/current/index.html 
+
 
 The NEST nuget package for Elasticsearch has reached the end of its life and has been replaced with the new nuget package Elastic.Clients.Elasticsearch   
 
