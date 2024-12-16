@@ -6,3 +6,5 @@
 /.vs/Elasticsearch_Using_NewNugetPackage/v17
 /Elasticsearch_Using_NewNugetPackage/bin/Debug/net8.0
 /Elasticsearch_Using_NewNugetPackage/obj
+/.vs/Elasticsearch_Using_NewNugetPackage/config
+/.vs/Elasticsearch_Using_NewNugetPackage/DesignTimeBuild
