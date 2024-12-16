@@ -1,0 +1,153 @@
+﻿@model PaginatedList<AirbnbData>
+
+@{
+    ViewData["Title"] = "Airbnb Open Data";
+}
+
+<div class="container">
+    <h1 class="display-4">New York City Airbnb Open Data</h1>
+    <br /><br />
+    <form asp-action="Index" method="get">
+        <div class="form-actions no-color">
+            <p>
+                <label>Find by name: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" /></label>
+                <input type="submit" value="Search" class="btn btn-primary" /> |
+                <a asp-action="Index">Back to Full List</a>
+            </p>
+        </div>
+    </form>
+    <br /><br />
+</div>
+
+
+<table class="table ">
+    <thead>
+        <tr>
+            <th>
+                id
+            </th>
+            <th>
+                name
+            </th>
+            <th>
+                host_id
+            </th>
+            <th>
+                host_name
+            </th>
+            <th>
+                neighbourhood_group
+            </th>
+            <th>
+                model.neighbourhood
+            </th>
+            <th>
+                model.latitude
+            </th>
+            <th>
+                longitude
+            </th>
+            <th>
+                room_type
+            </th>
+            <th>
+                price
+            </th>
+            <th>
+                minimum_nights
+            </th>
+            <th>
+                number_of_reviews
+            </th>
+            <th>
+                last_review
+            </th>
+            <th>
+                reviews_per_month
+            </th>
+            <th>
+                calculated_host_listings_count
+            </th>
+            <th>
+                availability_365
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.host_id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.host_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.neighbourhood_group)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.neighbourhood)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.latitude)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.longitude)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.room_type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.minimum_nights)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.number_of_reviews)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.last_review)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.reviews_per_month)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.calculated_host_listings_count)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.availability_365)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    int pageSize = 10;
+}
+
+<a asp-action="Index"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-pageSize="@(pageSize)"
+   asp-route-searchString="@ViewData["SearchString"]"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-action="Index"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-pageSize="@(pageSize)"
+   asp-route-searchString="@ViewData["SearchString"]"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>
