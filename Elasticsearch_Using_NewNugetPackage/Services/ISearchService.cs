@@ -60,8 +60,14 @@ namespace Elasticsearch_Using_Elastic.Clients.Elasticsearch.Services
 
         public async Task<bool> UpdateDoc(string id, AirbnbData data)
         {
-            var indexResponse = await _elasticsearchClient.UpdateAsync<AirbnbData, AirbnbData>(data, new Id(id));
-
+            var indexResponse = await _elasticsearchClient.UpdateAsync<AirbnbData, AirbnbData>(
+                    _defaultIndex, 
+                     new Id(id),
+                     update => update
+                    .Doc(data)
+                    .Refresh(Refresh.True)
+                );
+            
             return indexResponse.IsSuccess();
         }
 
