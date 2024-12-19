@@ -11,8 +11,8 @@
         <div class="form-actions no-color">
             <p>
                 <label>Find by name: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" /></label>
-                <input type="submit" value="Search" class="btn btn-primary" /> |
-                <a asp-action="Index">Back to Full List</a>
+                <input type="submit" value="Search"  class="btn btn-primary" /> |
+                <a asp-action="Index">Back to Full List</a> | <a asp-action="Create">Add new</a>
             </p>
         </div>
     </form>
@@ -24,52 +24,52 @@
     <thead>
         <tr>
             <th>
-                id
+                Id
             </th>
             <th>
-                name
+                Name
             </th>
             <th>
-                host_id
+                Host Id
             </th>
             <th>
-                host_name
+                Host Name
             </th>
             <th>
-                neighbourhood_group
+                Neighbourhood Group
             </th>
             <th>
-                model.neighbourhood
+                Neighbourhood
             </th>
             <th>
-                model.latitude
+                Latitude
             </th>
             <th>
-                longitude
+                Longitude
             </th>
             <th>
-                room_type
+                Room Type
             </th>
             <th>
-                price
+                Price
             </th>
             <th>
-                minimum_nights
+                Minimum Nights
             </th>
             <th>
-                number_of_reviews
+                Number Of Reviews
             </th>
             <th>
-                last_review
+                Last Review
             </th>
             <th>
-                reviews_per_month
+                Reviews Per Month
             </th>
             <th>
-                calculated_host_listings_count
+                Calculated Host Listings Count
             </th>
             <th>
-                availability_365
+                Availability 365
             </th>
             <th></th>
         </tr>
@@ -125,6 +125,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.availability_365)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.id" class="btn-sm btn-primary">Edit</a> &nbsp;| &nbsp; <a asp-action="Delete" asp-route-id="@item.id" class="btn-sm btn-danger">Delete</a>
                 </td>
             </tr>
         }

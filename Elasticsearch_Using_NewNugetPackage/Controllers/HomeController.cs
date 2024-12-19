@@ -36,6 +36,41 @@ namespace Elasticsearch_Using_Elastic.Clients.Elasticsearch.Controllers
             return View(pagedList);
         }
 
+        public IActionResult Create()
+        {
+            return View (new AirbnbData() { id = Guid.NewGuid().ToString() });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(AirbnbData airbnb)
+        {
+            await _searchService.AddDoc(airbnb);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Edit(string id)
+        {
+            AirbnbData data = await _searchService.Get(id);
+
+            return View(data ?? new AirbnbData());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(string id, AirbnbData airbnb)
+        {
+            await _searchService.UpdateDoc(id, airbnb);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Delete(string id)
+        {
+            await _searchService.DeleteDoc(id);
+
+            return RedirectToAction(nameof(Index));
+        }
+
         public IActionResult Privacy()
         {
             return View();

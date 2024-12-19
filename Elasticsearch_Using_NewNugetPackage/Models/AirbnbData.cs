@@ -26,7 +26,7 @@
 
         public string number_of_reviews { get; set; }
 
-        public string last_review { get; set; }
+        public DateTime? last_review { get; set; }
 
         public string reviews_per_month { get; set; }
 
