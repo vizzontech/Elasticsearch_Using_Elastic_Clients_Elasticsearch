@@ -1,7 +1,5 @@
 ﻿using Elastic.Clients.Elasticsearch;
-using Elastic.Clients.Elasticsearch.Nodes;
 using Elasticsearch_Using_Elastic.Clients.Elasticsearch.Models;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Elasticsearch_Using_Elastic.Clients.Elasticsearch.Services
 {
@@ -28,11 +26,19 @@ namespace Elasticsearch_Using_Elastic.Clients.Elasticsearch.Services
             _defaultIndex = defaultIndex;
         }
 
+        /// <summary>
+        /// https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-get.html
+        /// https://www.elastic.co/guide/en/elasticsearch/client/net-api/current/getting-started-net.html
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<AirbnbData?> Get(string id)
         {
-            var response = await _elasticsearchClient.GetAsync<AirbnbData>(new Id(id), idx => idx.Index(_defaultIndex));
-            
-            return response.Source;
+            var searchResponse = await _elasticsearchClient.GetAsync<AirbnbData>(new Id(id), config =>
+            {
+                config.Index(_defaultIndex);
+            });
+            return searchResponse.Source;
         }
 
         public async Task<SearchResponse<AirbnbData>> SearchDocumentsByName(int pageNumber, int maxSize, string name)
@@ -53,21 +59,21 @@ namespace Elasticsearch_Using_Elastic.Clients.Elasticsearch.Services
 
         public async Task<bool> AddDoc(AirbnbData data)
         {
-           var indexResponse = await _elasticsearchClient.IndexAsync<AirbnbData>(data);
+            var indexResponse = await _elasticsearchClient.IndexAsync<AirbnbData>(data);
 
-           return indexResponse.IsSuccess();
+            return indexResponse.IsSuccess();
         }
 
         public async Task<bool> UpdateDoc(string id, AirbnbData data)
         {
             var indexResponse = await _elasticsearchClient.UpdateAsync<AirbnbData, AirbnbData>(
-                    _defaultIndex, 
+                    _defaultIndex,
                      new Id(id),
                      update => update
                     .Doc(data)
                     .Refresh(Refresh.True)
                 );
-            
+
             return indexResponse.IsSuccess();
         }
 

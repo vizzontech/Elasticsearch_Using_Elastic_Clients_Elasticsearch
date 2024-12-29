@@ -23,15 +23,22 @@ namespace Elasticsearch_Using_Elastic.Clients.Elasticsearch.Controllers
         {
             ViewData["SearchString"] = searchString;
 
-            IReadOnlyCollection<AirbnbData> airbnbDatas = new List<AirbnbData>();
+            var airbnbDatas = new List<AirbnbData>();
 
             var matchAll = await _searchService.SearchDocumentsByName(pageNumber, _maxSize, searchString);
 
             if (matchAll != null && matchAll.Documents.Any())
-                airbnbDatas = matchAll.Documents;
+            {
+                foreach(var doc in matchAll.Hits)
+                {
+                    AirbnbData? airbnb = doc.Source;
+                    airbnb._id = doc.Id;
+                    airbnbDatas.Add(airbnb);
+                }
+            }
 
             _logger.LogInformation($"Searched document count :{airbnbDatas.Count}");
-            var pagedList = PaginatedList<AirbnbData>.Create(matchAll.Documents.AsQueryable(), pageNumber, pageSize);
+            var pagedList = PaginatedList<AirbnbData>.Create(airbnbDatas.AsQueryable(), pageNumber, pageSize);
 
             return View(pagedList);
         }
@@ -68,7 +75,11 @@ namespace Elasticsearch_Using_Elastic.Clients.Elasticsearch.Controllers
         {
             await _searchService.DeleteDoc(id);
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new {
+                pageNumber = 1,
+                pageSize = 10,
+                searchString = "bed"
+            });
         }
 
         public IActionResult Privacy()

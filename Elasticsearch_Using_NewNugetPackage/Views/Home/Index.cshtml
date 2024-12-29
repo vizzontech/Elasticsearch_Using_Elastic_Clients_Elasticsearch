@@ -79,7 +79,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.id)
+                    @Html.DisplayFor(modelItem => item._id)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.name)
@@ -127,7 +127,7 @@
                     @Html.DisplayFor(modelItem => item.availability_365)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.id" class="btn-sm btn-primary">Edit</a> &nbsp;| &nbsp; <a asp-action="Delete" asp-route-id="@item.id" class="btn-sm btn-danger">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item._id" class="btn-sm btn-primary">Edit</a> &nbsp;|  <a asp-action="Delete" onclick="return confirm('Are you sure you want to delete this?')" asp-route-id="@item._id" class="btn-sm btn-danger">Delete</a>
                 </td>
             </tr>
         }
