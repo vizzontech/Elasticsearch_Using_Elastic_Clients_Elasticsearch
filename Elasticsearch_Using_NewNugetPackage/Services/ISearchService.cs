@@ -59,7 +59,10 @@ namespace Elasticsearch_Using_Elastic.Clients.Elasticsearch.Services
 
         public async Task<bool> AddDoc(AirbnbData data)
         {
-            var indexResponse = await _elasticsearchClient.IndexAsync<AirbnbData>(data);
+            var indexResponse = await _elasticsearchClient.IndexAsync<AirbnbData>(data,_defaultIndex, data.id, config =>
+            {
+                config.Refresh(Refresh.True);
+            });
 
             return indexResponse.IsSuccess();
         }
