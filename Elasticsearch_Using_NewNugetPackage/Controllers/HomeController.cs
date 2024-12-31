@@ -19,7 +19,7 @@ namespace Elasticsearch_Using_Elastic.Clients.Elasticsearch.Controllers
         public async Task<IActionResult> Index(
          int pageNumber = 1,
          int pageSize = 10,
-         string searchString = "bed")
+         string searchString = null)
         {
             ViewData["SearchString"] = searchString;
 

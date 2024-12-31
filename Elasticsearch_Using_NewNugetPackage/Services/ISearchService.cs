@@ -43,16 +43,30 @@ namespace Elasticsearch_Using_Elastic.Clients.Elasticsearch.Services
 
         public async Task<SearchResponse<AirbnbData>> SearchDocumentsByName(int pageNumber, int maxSize, string name)
         {
-            var searchResponse = await _elasticsearchClient.SearchAsync<AirbnbData>(s => s
-                                .Index(_defaultIndex)
-                                    .Query(q => q
-                                        .Match(m => m
-                                        .Field(f => f.name).Query(name)
-                                    )
-                                )
-                                .From(pageNumber)
-                                .Size(maxSize)
-                            );
+            var searchResponse= new SearchResponse<AirbnbData>();
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                searchResponse = await _elasticsearchClient.SearchAsync<AirbnbData>(s => s
+                    .Index(_defaultIndex)
+                    .From(pageNumber)
+                    .Size(maxSize)
+                    .Query(q => q
+                            .Match(m => m
+                            .Field(f => f.name).Query(name))
+                    ));
+            }
+            else
+            {
+                searchResponse = await _elasticsearchClient.SearchAsync<AirbnbData>(s => s
+                   .Index(_defaultIndex)
+                   .From(pageNumber)
+                   .Size(maxSize)
+                   .Query(q => q.MatchAll(m =>
+                   {
+                   }))
+               );
+            }
 
             return searchResponse;
         }
