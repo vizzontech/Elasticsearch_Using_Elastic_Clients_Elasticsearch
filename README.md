@@ -19,5 +19,31 @@ Why the Change?
 In short, upgrading to Elastic.Clients.Elasticsearch will simplify your code, ensure long-term support, and keep your applications ready for the future.
 
 
+# Dependencies 
+This project has dependencies of the ELK stack running in the docker environment. To deploy the ELK stack clone repository https://github.com/vizzontech/ELK_Docker 
+
+Open the code in VS code, click terminal, and run the docker-compose command 
+
+```
+docker-compose up
+
+```
+Check if services are running 
+```
+docker ps --filter "name=elasticsearch" --filter "name=kibana" --filter "name=logstash"
+
+```
+
+You can view services in the brower 
+
+Elastic search
+http://localhost:9200/
+
+Logstash
+http://localhost:9600/
+
+Kibana
+http://localhost:5601/
+
 
 https://www.elastic.co/guide/en/elasticsearch/client/net-api/current/index.html 
