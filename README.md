@@ -45,5 +45,8 @@ http://localhost:9600/
 Kibana
 http://localhost:5601/
 
+# Elasticsearch using Elastic Clients Elasticsearch
 
-https://www.elastic.co/guide/en/elasticsearch/client/net-api/current/index.html 
+This standard .NET MVC project showcases the New York City Airbnb Open Data. The sample CSV data is ingested into Elasticsearch using Logstash during the initial setup of the dependencies, ensuring that the index and sample data are ready for use in this demo application. The application offers CRUD operation and data filtering. 
+
+
